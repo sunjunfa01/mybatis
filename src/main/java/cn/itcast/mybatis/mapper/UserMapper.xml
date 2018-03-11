@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itcast.mybatis.model.User">
+    <!-- addUser -->
+    <insert id="addUser" parameterType="cn.itcast.mybatis.model.User">
+        INSERT INTO user(username,userage)VALUES(#{username},#{userage})
+    </insert>
+    <!--UpdateUser-->
+    <!--<update id="UpdateUser" parameterType="cn.itcast.mybatis.model.User">
+        UPDATE  user set username=#{username} where  userid=#{userid}
+    </update>-->
+    <update id="updateUser" parameterType="cn.itcast.mybatis.model.User">
+        UPDATE user SET username=#{username},userage=#{userage} WHERE userid=#{userid}
+    </update>
+
+
+    <!--getUserById 查单个对象-->
+    <select id="getUserById"  parameterType="java.lang.Integer" resultType="cn.itcast.mybatis.model.User">
+
+        SELECT  username,userage FROM  user WHERE  userid=#{id}
+    </select>
+    <!--getUserById 查单个对象-->
+    <select id="getUserAll"   resultType="cn.itcast.mybatis.model.User">
+
+        SELECT  username,userage FROM  user 
+    </select>
+    <!--删除一个对象-->
+    <delete id="DeleteById" parameterType="java.lang.Integer">
+
+        DELETE FROM  user   WHERE  userid=#{id}
+    </delete>
+
+    <!--获取主键id-->
+   <!-- <insert id="KeyId" parameterType="cn.itcast.mybatis.model.User">
+       <selectKey keyColumn="userid" keyProperty="userid"  resultType="int" order="AFTER">
+           SELECT LAST_INSERT_ID()
+       </selectKey>
+      INSERT  INTO  user(username,userage) VALUES (#{username},#{userage})
+    </insert>-->
+    <!--获取主键id 方法二-->
+    <insert id="KeyId" parameterType="cn.itcast.mybatis.model.User" useGeneratedKeys="true" keyProperty="userid">
+        <selectKey keyColumn="userid" keyProperty="userid"  resultType="String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        INSERT  INTO  user(username,userage) VALUES (#{username},#{userage})
+    </insert>
+    
+</mapper>
