@@ -111,6 +111,8 @@ public class MyBatisTest {
         idCard.setUsserid(2);
         sqlSession.insert("cn.itcast.mybatis.model.IdCard.addIdcard",idCard);
         System.out.println("aahh"+idCard);
+        System.out.println("aahh"+idCard);
+        System.out.println("aahh"+idCard);
 
     }
     @After
